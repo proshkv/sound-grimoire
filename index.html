@@ -243,6 +243,40 @@
     50%      { box-shadow: 0 10px 30px rgba(255,255,255,.3); }
   }
 
+  /* ---------- кнопка перехода на страницу "Мои треки" ---------- */
+  .my-tracks-row{
+    display: flex;
+    justify-content: center;
+    margin: -14px 0 30px;
+    animation: rise 1s .24s cubic-bezier(.2,.8,.2,1) both;
+  }
+  .my-tracks-btn{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    text-decoration: none;
+    color: #0b0b0b;
+    background: #f4f4f4;
+    border: 2px solid #f4f4f4;
+    border-radius: 999px;
+    padding: 9px 22px;
+    cursor: pointer;
+    transition: transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s ease;
+    box-shadow: 0 8px 22px rgba(255,255,255,.14);
+  }
+  .my-tracks-btn:hover{
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 10px 28px rgba(255,255,255,.28);
+  }
+  .my-tracks-btn:active{ transform: translateY(-1px) scale(.98); }
+  .my-tracks-btn:focus-visible{
+    outline: 3px solid #fff;
+    outline-offset: 2px;
+  }
+
   /* ---------- строка поиска + сортировка ---------- */
   .filter-row{
     display: flex;
@@ -900,6 +934,15 @@
     <h1>Архив Прошки</h1>
     <p>Личный архив аудиозаписей — как книга заклинаний, только вместо заклинаний звуки. Выберите главу и нажмите на запись.</p>
   </header>
+
+  <div class="my-tracks-row">
+    <a href="my-tracks.html" class="my-tracks-btn" aria-label="Перейти к странице «Треки pro_Oshkv»">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">
+        <path d="M12 3v10.55a4 4 0 1 0 2 3.45V7h4V3h-6z" fill="currentColor"/>
+      </svg>
+      Мои треки
+    </a>
+  </div>
 
   <nav class="tabs" id="tabs"></nav>
 
