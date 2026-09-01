@@ -1,10 +1,4 @@
 [
   { "title": "cette fille emo ✝",      "author": "matascoo", "genre": "Не рассортировано",     "file": "https://archive.org/download/matascoo-cette-fille-emo/matascoo%20-%20cette%20fille%20emo%20%E2%9C%9D%20%281%29.mp3", "duration": "2:04", "added": "2026-09-01" },
-  { "title": "VESNATEKK",        "author": "pro_Oshkv", "genre": "Hardtekk",     "file": "https://archive.org/download/pro-oshkv-spring-hardtekk/pro_Oshkv%20-%20Spring%20Hardtekk.mp3", "duration": "1:16", "added": "2026-09-01" },
-  { "title": "Погоня за Ладорном",  "author": "Неизвестный автор", "genre": "Электроника", "file": "audio/track3.mp3", "duration": "2:48", "added": "2024-03-21" },
-  { "title": "Радужный узор",       "author": "Неизвестный автор", "genre": "Электроника", "file": "audio/track4.mp3", "duration": "3:33", "added": "2024-04-09" },
-  { "title": "Земляная школа",      "author": "Неизвестный автор", "genre": "Ретро",       "file": "audio/track5.mp3", "duration": "3:00", "added": "2024-05-30" },
-  { "title": "Гараж Марко",         "author": "Неизвестный автор", "genre": "Ретро",       "file": "audio/track6.mp3", "duration": "2:21", "added": "2024-06-18" },
-  { "title": "Заклинание тишины",   "author": "Неизвестный автор", "genre": "Акустика",    "file": "audio/track7.mp3", "duration": "4:40", "added": "2024-07-07" },
-  { "title": "Скипетр и струны",    "author": "Неизвестный автор", "genre": "Акустика",    "file": "audio/track8.mp3", "duration": "3:57", "added": "2024-08-22" }
+  { "title": "VESNATEKK",        "author": "pro_Oshkv", "genre": "Hardtekk",     "file": "https://archive.org/download/pro-oshkv-spring-hardtekk/pro_Oshkv%20-%20Spring%20Hardtekk.mp3", "duration": "1:16", "added": "2026-09-01" }
 ]
