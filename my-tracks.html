@@ -243,6 +243,14 @@
     50%      { box-shadow: 0 10px 30px rgba(255,255,255,.3); }
   }
 
+  /* вкладка «Избранное» — тёплый акцент вместо монохрома, когда активна */
+  .tab-btn.tab-fav.active{
+    background: #ff6b81;
+    color: #1a0508;
+    border-color: #ff6b81;
+    box-shadow: 0 8px 26px rgba(255,107,129,.35);
+  }
+
   /* ---------- кнопка возврата к общему архиву ---------- */
   .my-tracks-row{
     display: flex;
@@ -572,7 +580,7 @@
   }
   li.track:hover .track-duration{ color: var(--ink); transform: scale(1.08); }
 
-  .download-btn{
+  .download-btn, .share-btn, .favorite-btn{
     flex: none;
     display: flex;
     align-items: center;
@@ -582,15 +590,42 @@
     border-radius: 50%;
     color: var(--ink-faint);
     text-decoration: none;
+    border: none;
+    background: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    position: relative;
     transition: color .25s ease, background-color .25s ease, transform .25s ease;
   }
-  .download-btn svg{ width: 15px; height: 15px; }
-  .download-btn:hover, .download-btn:focus-visible{
+  .download-btn svg, .share-btn svg, .favorite-btn svg{ width: 15px; height: 15px; }
+  .download-btn:hover, .download-btn:focus-visible,
+  .share-btn:hover, .share-btn:focus-visible,
+  .favorite-btn:hover, .favorite-btn:focus-visible{
     color: var(--ink);
     background: rgba(255,255,255,.08);
     transform: scale(1.12);
   }
-  li.track:hover .download-btn{ color: var(--ink-dim); }
+  li.track:hover .download-btn, li.track:hover .share-btn, li.track:hover .favorite-btn{ color: var(--ink-dim); }
+
+  /* иконка «скопировано» вместо иконки ссылки на пару секунд после клика */
+  .share-btn .ico-check{ display: none; }
+  .share-btn.copied{ color: #8be9a8; }
+  .share-btn.copied .ico-link{ display: none; }
+  .share-btn.copied .ico-check{ display: block; }
+
+  /* сердечко «избранное» */
+  .favorite-btn svg{ fill: none; stroke: currentColor; stroke-width: 2; transition: fill .2s ease, stroke .2s ease, transform .2s ease; }
+  .favorite-btn.active{ color: #ff6b81; }
+  .favorite-btn.active svg{ fill: currentColor; stroke: #ff6b81; }
+  .favorite-btn.active:hover, .favorite-btn.active:focus-visible{ color: #ff6b81; }
+  li.track:hover .favorite-btn.active{ color: #ff6b81; }
+  .favorite-btn.pulse svg{ animation: fav-pulse .35s ease; }
+  @keyframes fav-pulse{
+    0%   { transform: scale(1); }
+    40%  { transform: scale(1.35); }
+    100% { transform: scale(1); }
+  }
 
   /* волна-подчёркивание, растущая при наведении */
   li.track::after{
@@ -797,6 +832,61 @@
   #playPause:focus-visible{ outline: 3px solid #fff; outline-offset: 3px; }
   body.is-playing #playPause{ animation: btn-breathe 2.4s ease-in-out infinite; }
 
+  /* ---------- предыдущий / следующий / случайно / автопереход ---------- */
+  .transport{
+    flex: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .skip-btn{
+    flex: none;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 2px solid var(--card-edge);
+    background: var(--card);
+    color: var(--ink);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .25s cubic-bezier(.2,.8,.2,1), border-color .25s ease,
+                background-color .25s ease, color .25s ease;
+  }
+  .skip-btn svg{ width: 16px; height: 16px; }
+  .skip-btn:hover{ transform: scale(1.12); border-color: var(--edge-hot); background: var(--card-2); }
+  .skip-btn:active{ transform: scale(.9); }
+  .skip-btn:focus-visible{ outline: 3px solid #fff; outline-offset: 2px; }
+
+  .mode-btn{
+    flex: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid var(--card-edge);
+    background: var(--card);
+    color: var(--ink-dim);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .25s cubic-bezier(.2,.8,.2,1), border-color .25s ease,
+                background-color .25s ease, color .25s ease;
+  }
+  .mode-btn svg{ width: 15px; height: 15px; }
+  .mode-btn:hover{ transform: scale(1.14); border-color: var(--edge-hot); background: var(--card-2); }
+  .mode-btn:active{ transform: scale(.88); }
+  .mode-btn:focus-visible{ outline: 3px solid #fff; outline-offset: 2px; }
+  /* включённый режим — как активная вкладка жанра */
+  .mode-btn.active{
+    background: #f4f4f4;
+    border-color: #f4f4f4;
+    color: #0b0b0b;
+    box-shadow: 0 6px 16px rgba(255,255,255,.16);
+  }
+
   /* ---------- общий вид ползунков ---------- */
   input[type="range"].mono{
     -webkit-appearance: none;
@@ -917,6 +1007,11 @@
   @media (max-width: 720px){
     .now-playing{ width: 150px; }
     #volume{ width: 70px; }
+    .transport{ gap: 4px; }
+    .skip-btn{ width: 30px; height: 30px; }
+    .skip-btn svg{ width: 14px; height: 14px; }
+    .mode-btn{ width: 26px; height: 26px; }
+    .mode-btn svg{ width: 13px; height: 13px; }
   }
   @media (max-width: 560px){
     .now-playing{ width: 44px; }
@@ -924,10 +1019,20 @@
     #time{ width: 74px; font-size: 11px; }
     #volume{ width: 54px; }
     .player{ gap: 10px; padding: 0 12px; }
+    .controls{ gap: 8px; }
+    #playPause{ width: 40px; height: 40px; }
+    #playPause svg{ width: 15px; height: 15px; }
+    .transport{ gap: 3px; }
+    .skip-btn{ width: 27px; height: 27px; }
+    .mode-btn{ width: 24px; height: 24px; }
+    .mode-btn svg{ width: 12px; height: 12px; }
     .track-date{ display: none; }
     .track-duration{ font-size: 12px; }
-    .download-btn{ width: 26px; height: 26px; }
-    .download-btn svg{ width: 13px; height: 13px; }
+    .download-btn, .share-btn, .favorite-btn{ width: 26px; height: 26px; }
+    .download-btn svg, .share-btn svg, .favorite-btn svg{ width: 13px; height: 13px; }
+  }
+  @media (max-width: 380px){
+    .mode-btn{ display: none; }
   }
   @media (max-width: 420px){
     .track-genre-badge{ display: none; }
@@ -1011,10 +1116,35 @@
     </div>
   </div>
   <div class="controls">
-    <button id="playPause" aria-label="Играть или поставить на паузу">
-      <svg id="playIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-      <svg id="pauseIcon" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-    </button>
+    <div class="transport">
+      <button id="shuffleBtn" class="mode-btn" aria-pressed="false" aria-label="Случайный порядок: выключен" title="Играть треки из списка в случайном порядке">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 6h3.4c1.4 0 2.3.7 3 1.7l5.2 7.6c.7 1 1.6 1.7 3 1.7H21"/>
+          <path d="M17.5 4.2 21 6.5l-3.5 2.3"/>
+          <path d="M3 17.5h3.4c1.4 0 2.3-.7 3-1.7l.9-1.3"/>
+          <path d="M13.6 9.5l.9-1.3c.7-1 1.6-1.7 3-1.7"/>
+          <path d="M17.5 19.8 21 17.5l-3.5-2.3"/>
+        </svg>
+      </button>
+      <button id="prevBtn" class="skip-btn" aria-label="Предыдущий трек">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+      </button>
+      <button id="playPause" aria-label="Играть или поставить на паузу">
+        <svg id="playIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg id="pauseIcon" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <button id="nextBtn" class="skip-btn" aria-label="Следующий трек">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+      </button>
+      <button id="autoNextBtn" class="mode-btn" aria-pressed="true" aria-label="Автопереход к следующему треку: включён" title="Автоматически включать следующий трек">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M17 2l4 4-4 4"/>
+          <path d="M3 11V9a4 4 0 0 1 4-4h14"/>
+          <path d="M7 22l-4-4 4-4"/>
+          <path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+        </svg>
+      </button>
+    </div>
     <input type="range" class="mono" id="seek" value="0" min="0" max="100" step="0.1" aria-label="Перемотка">
     <span id="time">0:00 / 0:00</span>
   </div>
@@ -1058,6 +1188,10 @@
   const playPauseBtn = document.getElementById('playPause');
   const playIcon = document.getElementById('playIcon');
   const pauseIcon = document.getElementById('pauseIcon');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const shuffleBtn = document.getElementById('shuffleBtn');
+  const autoNextBtn = document.getElementById('autoNextBtn');
   const seekEl = document.getElementById('seek');
   const timeEl = document.getElementById('time');
   const nowTitleEl = document.getElementById('nowTitle');
@@ -1069,6 +1203,14 @@
   const volBadge = document.getElementById('volBadge');
 
   const VOLUME_KEY = 'arkhiv-proshki:volume';
+  const AUTONEXT_KEY = 'arkhiv-proshki:autonext';
+  const SHUFFLE_KEY = 'arkhiv-proshki:shuffle';
+  const FAVORITES_KEY = 'arkhiv-proshki:favorites';
+
+  /* избранное хранится только в этом браузере (localStorage) —
+     у каждого посетителя оно своё, без учётных записей и сервера */
+  const FAVORITES_FILTER = '__favorites__';
+  let favorites = loadFavoritesFromStorage();
 
   let activeGenre = 'Все';
   let searchQuery = '';
@@ -1076,6 +1218,8 @@
   let currentIndex = null;
   let isSeeking = false;
   let trackNodes = new Map();   // индекс трека -> <li>
+  let autoNext = true;          // включён ли автопереход к следующему треку
+  let shuffleMode = false;      // включено ли случайное воспроизведение
 
   function uniqueGenres(){
     return [...new Set(TRACKS.map(t => t.genre))];
@@ -1155,13 +1299,14 @@
   }
 
   function renderTabs(){
-    const genres = ['Все', ...uniqueGenres()];
+    const genres = ['Все', FAVORITES_FILTER, ...uniqueGenres()];
     tabsEl.innerHTML = '';
     genres.forEach((g, i) => {
+      const isFav = g === FAVORITES_FILTER;
       const btn = document.createElement('button');
-      btn.className = 'tab-btn' + (g === activeGenre ? ' active' : '');
+      btn.className = 'tab-btn' + (g === activeGenre ? ' active' : '') + (isFav ? ' tab-fav' : '');
       btn.style.setProperty('--i', i);
-      btn.textContent = g;
+      btn.textContent = isFav ? '♥ Избранное' : g;
       btn.setAttribute('aria-pressed', g === activeGenre ? 'true' : 'false');
       btn.addEventListener('click', e => {
         ripple(btn, e);
@@ -1196,7 +1341,10 @@
     const filtered = sortTracks(
       TRACKS
         .map((t, i) => ({ ...t, index: i }))
-        .filter(t => activeGenre === 'Все' || t.genre === activeGenre)
+        .filter(t => {
+          if (activeGenre === FAVORITES_FILTER) return favorites.has(t._id);
+          return activeGenre === 'Все' || t.genre === activeGenre;
+        })
         .filter(t => {
           if (!q) return true;
           const haystack = `${t.title || ''} ${t.author || ''}`.toLowerCase();
@@ -1207,9 +1355,13 @@
     if (filtered.length === 0){
       const empty = document.createElement('div');
       empty.className = 'empty-state';
-      empty.textContent = q
-        ? `Ничего не найдено по запросу «${searchQuery.trim()}».`
-        : `Записей автора «${MY_AUTHOR}» пока нет — добавьте их в tracks.json (поле "author").`;
+      if (q){
+        empty.textContent = `Ничего не найдено по запросу «${searchQuery.trim()}».`;
+      } else if (activeGenre === FAVORITES_FILTER){
+        empty.textContent = 'Пока нет избранных записей — нажмите на сердечко у записи, чтобы добавить.';
+      } else {
+        empty.textContent = `Записей автора «${MY_AUTHOR}» пока нет — добавьте их в tracks.json (поле "author").`;
+      }
       listEl.appendChild(empty);
       return;
     }
@@ -1238,6 +1390,20 @@
           ${addedDate ? `<span class="track-date">${addedDate}</span>` : ''}
         </div>
         <span class="track-duration">${t.duration || '--:--'}</span>
+        <button class="favorite-btn${favorites.has(t._id) ? ' active' : ''}" type="button" tabindex="-1" aria-pressed="${favorites.has(t._id) ? 'true' : 'false'}" aria-label="${favorites.has(t._id) ? `Убрать «${t.title}» из избранного` : `Добавить «${t.title}» в избранное`}" title="${favorites.has(t._id) ? 'Убрать из избранного' : 'В избранное'}">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 21s-6.7-4.35-9.33-8.44C1.02 9.92 1.7 6.66 4.5 5.2c2.2-1.15 4.66-.5 6 1.4l1.5 2.1 1.5-2.1c1.34-1.9 3.8-2.55 6-1.4 2.8 1.46 3.48 4.72 1.83 7.36C18.7 16.65 12 21 12 21z"/>
+          </svg>
+        </button>
+        <button class="share-btn" type="button" tabindex="-1" aria-label="Скопировать ссылку на «${t.title}»" title="Скопировать ссылку">
+          <svg class="ico-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 13a5 5 0 0 0 7.07 0l2.83-2.83a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+            <path d="M14 11a5 5 0 0 0-7.07 0L4.1 13.83a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+          </svg>
+          <svg class="ico-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 6 9 17l-5-5"/>
+          </svg>
+        </button>
         <a class="download-btn" href="${t.file}" download tabindex="-1" aria-label="Скачать «${t.title}»" title="Скачать" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/>
@@ -1264,6 +1430,22 @@
         downloadBtn.addEventListener('click', e => e.stopPropagation());
       }
 
+      const shareBtn = li.querySelector('.share-btn');
+      if (shareBtn){
+        shareBtn.addEventListener('click', e => {
+          e.stopPropagation();
+          copyTrackLink(t.index, shareBtn);
+        });
+      }
+
+      const favBtn = li.querySelector('.favorite-btn');
+      if (favBtn){
+        favBtn.addEventListener('click', e => {
+          e.stopPropagation();
+          toggleFavorite(t._id, favBtn, t.title);
+        });
+      }
+
       trackNodes.set(t.index, li);
       listEl.appendChild(li);
     });
@@ -1284,6 +1466,144 @@
     discEl.classList.toggle('spinning', active);
   }
 
+  /* ---------------------------------------------------------------- */
+  /* ПРЯМЫЕ ССЫЛКИ НА ЗАПИСИ (?track=id) */
+
+  /* простой стабильный хэш строки — нужен только для авто-генерации id,
+     когда его не задали вручную в tracks.json */
+  function hashString(str){
+    let hash = 0;
+    const s = String(str || '');
+    for (let i = 0; i < s.length; i++){
+      hash = (hash * 31 + s.charCodeAt(i)) >>> 0;
+    }
+    return hash.toString(36);
+  }
+
+  /* превращает текст в кусочек URL: только буквы/цифры через дефис */
+  function slugify(str){
+    return String(str || '')
+      .trim()
+      .toLowerCase()
+      .replace(/[^\p{L}\p{N}]+/gu, '-')
+      .replace(/^-+|-+$/g, '')
+      .slice(0, 40);
+  }
+
+  /* id записи для ссылки: берётся поле "id" из tracks.json, если оно есть;
+     иначе собирается из названия и короткого хэша файла — так ссылка
+     остаётся рабочей, даже если порядок записей в tracks.json поменяется */
+  function trackId(t){
+    const explicit = t && t.id != null ? String(t.id).trim() : '';
+    if (explicit) return explicit;
+    const base = slugify(t && t.title) || 'track';
+    return `${base}-${hashString(t && t.file)}`;
+  }
+
+  /* полный адрес страницы с ?track=id — им можно поделиться с друзьями */
+  function buildShareUrl(id){
+    const url = new URL(location.href);
+    url.hash = '';
+    url.search = '';
+    url.searchParams.set('track', id);
+    return url.toString();
+  }
+
+  /* адресная строка всегда указывает на текущую запись, чтобы её можно
+     было скопировать прямо из браузера */
+  function updateUrlForTrack(track){
+    if (!track || !track._id) return;
+    try { history.replaceState(null, '', buildShareUrl(track._id)); }
+    catch (e) { /* приватный режим или недоступен History API */ }
+  }
+
+  /* копирует прямую ссылку на запись в буфер обмена по клику на share-btn */
+  function copyTrackLink(index, btnEl){
+    const track = TRACKS[index];
+    if (!track) return;
+    const url = buildShareUrl(track._id);
+
+    const showCopied = () => {
+      btnEl.classList.add('copied');
+      clearTimeout(btnEl._copiedTimer);
+      btnEl._copiedTimer = setTimeout(() => btnEl.classList.remove('copied'), 1500);
+    };
+    const fallbackCopy = () => {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = url;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showCopied();
+      } catch (e) { /* не удалось скопировать — ничего страшного */ }
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(url).then(showCopied).catch(fallbackCopy);
+    } else {
+      fallbackCopy();
+    }
+  }
+
+  /* если страница открыта по прямой ссылке ?track=id — сразу включаем
+     нужную запись и прокручиваем к ней список */
+  function applyTrackFromUrl(){
+    const wantedId = new URLSearchParams(location.search).get('track');
+    if (!wantedId) return;
+    const idx = TRACKS.findIndex(t => t._id === wantedId);
+    if (idx === -1) return;
+    playTrack(idx);
+    requestAnimationFrame(() => {
+      const li = trackNodes.get(idx);
+      if (li) li.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* ИЗБРАННОЕ (сердечко) — своё в каждом браузере, хранится в localStorage */
+
+  /* читает сохранённый список избранного при открытии страницы */
+  function loadFavoritesFromStorage(){
+    try {
+      const raw = localStorage.getItem(FAVORITES_KEY);
+      if (!raw) return new Set();
+      const arr = JSON.parse(raw);
+      return Array.isArray(arr) ? new Set(arr) : new Set();
+    } catch (e) { return new Set(); /* приватный режим или битые данные */ }
+  }
+
+  function saveFavorites(){
+    try { localStorage.setItem(FAVORITES_KEY, JSON.stringify([...favorites])); }
+    catch (e) { /* приватный режим — избранное просто не сохранится между визитами */ }
+  }
+
+  /* переключает сердечко у записи и, если открыта вкладка «Избранное»,
+     сразу убирает/добавляет запись в видимый список */
+  function toggleFavorite(id, btnEl, title){
+    if (!id) return;
+    const nowFavorite = !favorites.has(id);
+    if (nowFavorite) favorites.add(id); else favorites.delete(id);
+    saveFavorites();
+
+    if (btnEl){
+      btnEl.classList.toggle('active', nowFavorite);
+      btnEl.classList.remove('pulse');
+      void btnEl.offsetWidth;
+      btnEl.classList.add('pulse');
+      btnEl.setAttribute('aria-pressed', nowFavorite ? 'true' : 'false');
+      const label = nowFavorite ? `Убрать «${title}» из избранного` : `Добавить «${title}» в избранное`;
+      btnEl.setAttribute('aria-label', label);
+      btnEl.title = nowFavorite ? 'Убрать из избранного' : 'В избранное';
+    }
+
+    // на вкладке «Избранное» запись должна сразу исчезнуть при снятии сердечка
+    if (activeGenre === FAVORITES_FILTER) renderList();
+  }
+
   function playTrack(index){
     const track = TRACKS[index];
     if (!track) return;
@@ -1301,7 +1621,94 @@
 
     seekEl.style.setProperty('--pct', 0);
     syncPlayingState();
+    updateUrlForTrack(track);
   }
+
+  /* ---------------------------------------------------------------- */
+  /* ПРЕДЫДУЩИЙ / СЛЕДУЮЩИЙ / СЛУЧАЙНО / АВТОПЕРЕХОД */
+
+  /* порядок треков — как в текущем отфильтрованном и отсортированном списке */
+  function visibleOrder(){
+    return [...trackNodes.keys()];
+  }
+
+  function playByOffset(offset){
+    const order = visibleOrder();
+    if (order.length === 0) return;
+    if (currentIndex === null){
+      playTrack(offset >= 0 ? order[0] : order[order.length - 1]);
+      return;
+    }
+    const pos = order.indexOf(currentIndex);
+    if (pos === -1){
+      playTrack(order[0]);
+      return;
+    }
+    const nextPos = (pos + offset + order.length) % order.length;
+    playTrack(order[nextPos]);
+  }
+
+  function playRandomFromList(){
+    const order = visibleOrder();
+    if (order.length === 0) return;
+    if (order.length === 1){ playTrack(order[0]); return; }
+    let pick;
+    do {
+      pick = order[Math.floor(Math.random() * order.length)];
+    } while (pick === currentIndex);
+    playTrack(pick);
+  }
+
+  function goNext(){
+    if (shuffleMode) playRandomFromList(); else playByOffset(1);
+  }
+  function goPrev(){
+    if (shuffleMode) playRandomFromList(); else playByOffset(-1);
+  }
+
+  prevBtn.addEventListener('click', e => { ripple(prevBtn, e); goPrev(); });
+  nextBtn.addEventListener('click', e => { ripple(nextBtn, e); goNext(); });
+
+  function applyAutoNext(on, persist = true){
+    autoNext = !!on;
+    autoNextBtn.classList.toggle('active', autoNext);
+    autoNextBtn.setAttribute('aria-pressed', autoNext ? 'true' : 'false');
+    autoNextBtn.setAttribute('aria-label', autoNext
+      ? 'Автопереход к следующему треку: включён'
+      : 'Автопереход к следующему треку: выключен');
+    if (persist){
+      try { localStorage.setItem(AUTONEXT_KEY, autoNext ? '1' : '0'); } catch (e) { /* приватный режим */ }
+    }
+  }
+
+  function applyShuffle(on, persist = true){
+    shuffleMode = !!on;
+    shuffleBtn.classList.toggle('active', shuffleMode);
+    shuffleBtn.setAttribute('aria-pressed', shuffleMode ? 'true' : 'false');
+    shuffleBtn.setAttribute('aria-label', shuffleMode
+      ? 'Случайный порядок: включён'
+      : 'Случайный порядок: выключен');
+    if (persist){
+      try { localStorage.setItem(SHUFFLE_KEY, shuffleMode ? '1' : '0'); } catch (e) { /* приватный режим */ }
+    }
+  }
+
+  autoNextBtn.addEventListener('click', e => { ripple(autoNextBtn, e); applyAutoNext(!autoNext); });
+  shuffleBtn.addEventListener('click', e => { ripple(shuffleBtn, e); applyShuffle(!shuffleMode); });
+
+  /* восстановление сохранённых режимов автоперехода и случайного порядка */
+  (function restorePlaybackModes(){
+    let savedAutoNext = true;
+    let savedShuffle = false;
+    try {
+      const rawAuto = localStorage.getItem(AUTONEXT_KEY);
+      if (rawAuto !== null && rawAuto !== '') savedAutoNext = rawAuto === '1';
+      const rawShuffle = localStorage.getItem(SHUFFLE_KEY);
+      if (rawShuffle !== null && rawShuffle !== '') savedShuffle = rawShuffle === '1';
+    } catch (e) { /* приватный режим */ }
+    applyAutoNext(savedAutoNext, false);
+    applyShuffle(savedShuffle, false);
+  })();
 
   playPauseBtn.addEventListener('click', e => {
     ripple(playPauseBtn, e);
@@ -1350,6 +1757,10 @@
   });
 
   audioEl.addEventListener('ended', () => {
+    if (autoNext && trackNodes.size > 0){
+      goNext();
+      return;
+    }
     playIcon.style.display = '';
     pauseIcon.style.display = 'none';
     syncPlayingState();
@@ -1433,7 +1844,9 @@
       const res = await fetch('tracks.json');
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const all = await res.json();
-      TRACKS = all.filter(t => (t.author || '').trim().toLowerCase() === MY_AUTHOR.toLowerCase());
+      TRACKS = all
+        .map(t => ({ ...t, _id: trackId(t) }))
+        .filter(t => (t.author || '').trim().toLowerCase() === MY_AUTHOR.toLowerCase());
     } catch (err) {
       listEl.innerHTML = '';
       const empty = document.createElement('div');
@@ -1449,6 +1862,7 @@
     }
     renderTabs();
     renderList();
+    applyTrackFromUrl();
   }
 
   loadTracks();
