@@ -572,6 +572,26 @@
   }
   li.track:hover .track-duration{ color: var(--ink); transform: scale(1.08); }
 
+  .download-btn{
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color .25s ease, background-color .25s ease, transform .25s ease;
+  }
+  .download-btn svg{ width: 15px; height: 15px; }
+  .download-btn:hover, .download-btn:focus-visible{
+    color: var(--ink);
+    background: rgba(255,255,255,.08);
+    transform: scale(1.12);
+  }
+  li.track:hover .download-btn{ color: var(--ink-dim); }
+
   /* волна-подчёркивание, растущая при наведении */
   li.track::after{
     content:"";
@@ -906,6 +926,8 @@
     .player{ gap: 10px; padding: 0 12px; }
     .track-date{ display: none; }
     .track-duration{ font-size: 12px; }
+    .download-btn{ width: 26px; height: 26px; }
+    .download-btn svg{ width: 13px; height: 13px; }
   }
   @media (max-width: 420px){
     .track-genre-badge{ display: none; }
@@ -1216,6 +1238,11 @@
           ${addedDate ? `<span class="track-date">${addedDate}</span>` : ''}
         </div>
         <span class="track-duration">${t.duration || '--:--'}</span>
+        <a class="download-btn" href="${t.file}" download tabindex="-1" aria-label="Скачать «${t.title}»" title="Скачать" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/>
+          </svg>
+        </a>
       `;
 
       const activate = e => {
@@ -1231,6 +1258,11 @@
       li.addEventListener('keydown', e => {
         if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); activate(e); }
       });
+
+      const downloadBtn = li.querySelector('.download-btn');
+      if (downloadBtn){
+        downloadBtn.addEventListener('click', e => e.stopPropagation());
+      }
 
       trackNodes.set(t.index, li);
       listEl.appendChild(li);
