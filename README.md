@@ -1,4 +1,4 @@
-[README.md](https://github.com/user-attachments/files/31699985/README.md)
+[README.md](https://github.com/user-attachments/files/31706450/README.md)
 # Звуковой Гримуар — архив аудиозаписей
 
 Один файл, без сборки, без сервера. Открывается прямо в браузере.
