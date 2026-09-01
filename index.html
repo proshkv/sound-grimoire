@@ -243,6 +243,114 @@
     50%      { box-shadow: 0 10px 30px rgba(255,255,255,.3); }
   }
 
+  /* ---------- строка поиска + сортировка ---------- */
+  .filter-row{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+  .search-wrap{
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    flex: 1 1 260px;
+    margin: 0;
+    animation: rise .6s .1s cubic-bezier(.2,.8,.2,1) both;
+  }
+  .sort-wrap{
+    position: relative;
+    flex: none;
+    animation: rise .6s .16s cubic-bezier(.2,.8,.2,1) both;
+  }
+  .sort-select{
+    appearance: none;
+    -webkit-appearance: none;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--ink);
+    background: var(--card);
+    border: 2px solid var(--card-edge);
+    border-radius: 999px;
+    padding: 10px 34px 10px 18px;
+    cursor: pointer;
+    outline: none;
+    transition: border-color .25s ease, background-color .25s ease;
+  }
+  .sort-select:hover{ border-color: var(--edge-hot); }
+  .sort-select:focus-visible{ outline: 3px solid #fff; outline-offset: 2px; }
+  .sort-wrap::after{
+    content: "";
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid var(--ink-faint);
+    border-bottom: 2px solid var(--ink-faint);
+    transform: translateY(-70%) rotate(45deg);
+    pointer-events: none;
+  }
+  .sort-select option{
+    background: var(--card);
+    color: var(--ink);
+  }
+  .search-ico{
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 17px;
+    height: 17px;
+    color: var(--ink-faint);
+    pointer-events: none;
+    transition: color .25s ease;
+  }
+  .search-input{
+    width: 100%;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+    background: var(--card);
+    border: 2px solid var(--card-edge);
+    border-radius: 999px;
+    padding: 11px 40px 11px 42px;
+    outline: none;
+    transition: border-color .25s ease, box-shadow .25s ease, background-color .25s ease;
+  }
+  .search-input::placeholder{ color: var(--ink-faint); }
+  .search-input:hover{ border-color: var(--edge-hot); }
+  .search-input:focus{
+    border-color: #f4f4f4;
+    background: var(--card-2);
+    box-shadow: 0 0 0 4px rgba(255,255,255,.08);
+  }
+  .search-input:focus ~ .search-ico{ color: var(--ink); }
+  .search-clear{
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 26px;
+    height: 26px;
+    border: none;
+    border-radius: 50%;
+    background: var(--card-2);
+    color: var(--ink-dim);
+    font-size: 17px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color .2s ease, color .2s ease, transform .2s ease;
+  }
+  .search-clear:hover{ background: var(--card-edge); color: var(--ink); transform: translateY(-50%) scale(1.08); }
+
   /* ---------- список записей ---------- */
   ul.track-list{
     list-style: none;
@@ -381,12 +489,47 @@
     transition: letter-spacing .3s ease, transform .3s ease;
   }
   li.track:hover .track-title{ letter-spacing: .02em; transform: translateX(3px); }
-  .track-genre{
+  .track-author{
     font-size: 13px;
     color: var(--ink-dim);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     transition: color .25s ease, transform .3s ease;
   }
-  li.track:hover .track-genre{ color: var(--ink); transform: translateX(3px); }
+  li.track:hover .track-author{ color: var(--ink); transform: translateX(3px); }
+
+  /* ---------- жанр и дата — сбоку от названия ---------- */
+  .track-side{
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+    margin-right: 2px;
+  }
+  .track-genre-badge{
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .02em;
+    color: var(--ink-dim);
+    background: rgba(255,255,255,.05);
+    border: 1px solid var(--card-edge);
+    border-radius: 999px;
+    padding: 3px 10px;
+    white-space: nowrap;
+    transition: color .25s ease, border-color .25s ease;
+  }
+  li.track:hover .track-genre-badge{ color: var(--ink); border-color: var(--edge-hot); }
+  .track-date{
+    font-size: 11px;
+    color: var(--ink-faint);
+    white-space: nowrap;
+    transition: color .25s ease;
+  }
+  li.track:hover .track-date{ color: var(--ink-dim); }
+
   .track-duration{
     flex: none;
     font-size: 13px;
@@ -420,6 +563,44 @@
   }
   @keyframes ripple-out{
     to { transform: scale(2.6); opacity: 0; }
+  }
+
+  /* ---------- Made by / VK ---------- */
+  .made-by{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+    color: var(--ink-faint);
+    font-size: 13px;
+    animation: rise .6s cubic-bezier(.2,.8,.2,1) both;
+  }
+  .vk-btn{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--ink);
+    background: var(--card);
+    border: 2px solid var(--card-edge);
+    border-radius: 999px;
+    padding: 6px 14px 6px 12px;
+    transition: transform .22s cubic-bezier(.2,.8,.2,1), border-color .22s ease,
+                box-shadow .22s ease, background-color .22s ease;
+  }
+  .vk-btn:hover{
+    border-color: var(--edge-hot);
+    background: var(--card-2);
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 8px 22px rgba(0,0,0,.55);
+  }
+  .vk-btn:focus-visible{
+    outline: 3px solid #fff;
+    outline-offset: 2px;
   }
 
   .empty-state{
@@ -689,6 +870,11 @@
     #time{ width: 74px; font-size: 11px; }
     #volume{ width: 54px; }
     .player{ gap: 10px; padding: 0 12px; }
+    .track-date{ display: none; }
+    .track-duration{ font-size: 12px; }
+  }
+  @media (max-width: 420px){
+    .track-genre-badge{ display: none; }
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -717,8 +903,37 @@
 
   <nav class="tabs" id="tabs"></nav>
 
+  <div class="filter-row">
+    <div class="search-wrap">
+      <svg class="search-ico" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
+        <path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <input type="text" id="searchInput" class="search-input" placeholder="Поиск по названию или автору…" aria-label="Поиск по названию или автору">
+      <button type="button" id="searchClear" class="search-clear" aria-label="Очистить поиск" hidden>&times;</button>
+    </div>
+    <div class="sort-wrap">
+      <select id="sortSelect" class="sort-select" aria-label="Сортировка списка записей">
+        <option value="default">По умолчанию</option>
+        <option value="title-asc">Название (А–Я)</option>
+        <option value="author-asc">Исполнитель (А–Я)</option>
+        <option value="duration-asc">Длительность</option>
+        <option value="date-desc">Дата добавления</option>
+      </select>
+    </div>
+  </div>
+
   <main>
     <ul class="track-list" id="trackList"></ul>
+    <div class="made-by">
+      <span>Made by:</span>
+      <a class="vk-btn" href="https://vk.com/appointments" target="_blank" rel="noopener noreferrer" aria-label="Профиль ВКонтакте">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+          <path fill="currentColor" d="M13.16 19.02c-6.9 0-10.84-4.66-11-12.42h3.43c.11 5.73 2.68 8.16 4.72 8.67V6.6h3.24v4.92c2.01-.22 4.12-2.47 4.83-4.92h3.24c-.55 3.02-2.83 5.27-4.45 6.2 1.62.75 4.22 2.71 5.2 6.22h-3.57c-.76-2.34-2.69-4.15-5.25-4.4v4.4h-.39z"/>
+        </svg>
+        VK
+      </a>
+    </div>
   </main>
 </div>
 
@@ -771,6 +986,9 @@
 
   const tabsEl = document.getElementById('tabs');
   const listEl = document.getElementById('trackList');
+  const searchInputEl = document.getElementById('searchInput');
+  const searchClearEl = document.getElementById('searchClear');
+  const sortSelectEl = document.getElementById('sortSelect');
   const audioEl = document.getElementById('audioEl');
   const playPauseBtn = document.getElementById('playPause');
   const playIcon = document.getElementById('playIcon');
@@ -788,6 +1006,8 @@
   const VOLUME_KEY = 'arkhiv-proshki:volume';
 
   let activeGenre = 'Все';
+  let searchQuery = '';
+  let sortMode = 'default';
   let currentIndex = null;
   let isSeeking = false;
   let trackNodes = new Map();   // индекс трека -> <li>
@@ -802,6 +1022,57 @@
     const s = Math.floor(sec % 60).toString().padStart(2, '0');
     return `${m}:${s}`;
   }
+
+  /* "мм:сс" -> секунды, для сортировки по длительности.
+     Записи без длительности уходят в конец списка. */
+  function durationToSeconds(str){
+    if (!str) return Infinity;
+    const parts = String(str).split(':').map(Number);
+    if (parts.some(n => isNaN(n))) return Infinity;
+    return parts.reduce((acc, val) => acc * 60 + val, 0);
+  }
+
+  /* дата добавления ("ГГГГ-ММ-ДД") -> метка времени.
+     Записи без даты уходят в конец при сортировке по дате. */
+  function dateToTimestamp(str){
+    if (!str) return -Infinity;
+    const t = Date.parse(str);
+    return isNaN(t) ? -Infinity : t;
+  }
+
+  /* красивое отображение даты добавления */
+  function formatAddedDate(str){
+    if (!str) return '';
+    const d = new Date(str);
+    if (isNaN(d.getTime())) return str;
+    return d.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  }
+
+  function sortTracks(list){
+    const arr = [...list];
+    switch (sortMode){
+      case 'title-asc':
+        arr.sort((a, b) => (a.title || '').localeCompare(b.title || '', 'ru'));
+        break;
+      case 'author-asc':
+        arr.sort((a, b) => (a.author || '').localeCompare(b.author || '', 'ru'));
+        break;
+      case 'duration-asc':
+        arr.sort((a, b) => durationToSeconds(a.duration) - durationToSeconds(b.duration));
+        break;
+      case 'date-desc':
+        arr.sort((a, b) => dateToTimestamp(b.added) - dateToTimestamp(a.added));
+        break;
+      default:
+        break; // порядок как в tracks.json
+    }
+    return arr;
+  }
+
+  sortSelectEl.addEventListener('change', () => {
+    sortMode = sortSelectEl.value;
+    renderList();
+  });
 
   /* круги от нажатия внутри элемента */
   function ripple(el, e){
@@ -837,18 +1108,43 @@
     });
   }
 
+  searchInputEl.addEventListener('input', () => {
+    searchQuery = searchInputEl.value;
+    searchClearEl.hidden = searchQuery.length === 0;
+    renderList();
+  });
+
+  searchClearEl.addEventListener('click', () => {
+    searchQuery = '';
+    searchInputEl.value = '';
+    searchClearEl.hidden = true;
+    searchInputEl.focus();
+    renderList();
+  });
+
   function renderList(){
     listEl.innerHTML = '';
     trackNodes = new Map();
 
-    const filtered = TRACKS
-      .map((t, i) => ({ ...t, index: i }))
-      .filter(t => activeGenre === 'Все' || t.genre === activeGenre);
+    const q = searchQuery.trim().toLowerCase();
+
+    const filtered = sortTracks(
+      TRACKS
+        .map((t, i) => ({ ...t, index: i }))
+        .filter(t => activeGenre === 'Все' || t.genre === activeGenre)
+        .filter(t => {
+          if (!q) return true;
+          const haystack = `${t.title || ''} ${t.author || ''}`.toLowerCase();
+          return haystack.includes(q);
+        })
+    );
 
     if (filtered.length === 0){
       const empty = document.createElement('div');
       empty.className = 'empty-state';
-      empty.textContent = 'В этой главе пока пусто — добавьте записи в tracks.json.';
+      empty.textContent = q
+        ? `Ничего не найдено по запросу «${searchQuery.trim()}».`
+        : 'В этой главе пока пусто — добавьте записи в tracks.json.';
       listEl.appendChild(empty);
       return;
     }
@@ -861,7 +1157,7 @@
       li.setAttribute('role', 'button');
       li.setAttribute('aria-label', `Играть «${t.title}»`);
 
-      const authorLine = t.author ? `${t.genre} · ${t.author}` : t.genre;
+      const addedDate = formatAddedDate(t.added);
 
       li.innerHTML = `
         <button class="play-btn" tabindex="-1" aria-hidden="true">
@@ -870,7 +1166,11 @@
         </button>
         <div class="track-info">
           <span class="track-title">${t.title}</span>
-          <span class="track-genre">${authorLine}</span>
+          ${t.author ? `<span class="track-author">${t.author}</span>` : ''}
+        </div>
+        <div class="track-side">
+          <span class="track-genre-badge">${t.genre}</span>
+          ${addedDate ? `<span class="track-date">${addedDate}</span>` : ''}
         </div>
         <span class="track-duration">${t.duration || '--:--'}</span>
       `;
