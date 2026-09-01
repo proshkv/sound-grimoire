@@ -1,0 +1,10 @@
+[
+  { "title": "Портал в Мьюни",      "author": "Неизвестный автор", "genre": "Эмбиент",     "file": "audio/track1.mp3", "duration": "3:12" },
+  { "title": "Ночной рынок",        "author": "Неизвестный автор", "genre": "Эмбиент",     "file": "audio/track2.mp3", "duration": "4:05" },
+  { "title": "Погоня за Ладорном",  "author": "Неизвестный автор", "genre": "Электроника", "file": "audio/track3.mp3", "duration": "2:48" },
+  { "title": "Радужный узор",       "author": "Неизвестный автор", "genre": "Электроника", "file": "audio/track4.mp3", "duration": "3:33" },
+  { "title": "Земляная школа",      "author": "Неизвестный автор", "genre": "Ретро",       "file": "audio/track5.mp3", "duration": "3:00" },
+  { "title": "Гараж Марко",         "author": "Неизвестный автор", "genre": "Ретро",       "file": "audio/track6.mp3", "duration": "2:21" },
+  { "title": "Заклинание тишины",   "author": "Неизвестный автор", "genre": "Акустика",    "file": "audio/track7.mp3", "duration": "4:40" },
+  { "title": "Скипетр и струны",    "author": "Неизвестный автор", "genre": "Акустика",    "file": "audio/track8.mp3", "duration": "3:57" }
+]
