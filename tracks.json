@@ -1,4 +1,32 @@
 [
   { "id": "id1", "title": "cette fille emo ✝",      "author": "matascoo", "genre": "Не рассортировано",     "file": "https://archive.org/download/matascoo-cette-fille-emo/matascoo%20-%20cette%20fille%20emo%20%E2%9C%9D%20%281%29.mp3", "duration": "2:04", "added": "2026-09-01" },
   { "id": "id2", "title": "VESNATEKK",        "author": "pro_Oshkv", "genre": "Hardtekk",     "file": "https://archive.org/download/pro-oshkv-spring-hardtekk/pro_Oshkv%20-%20Spring%20Hardtekk.mp3", "duration": "1:16", "added": "2026-09-01" }
+  {
+    "id": "𝒢𝑅-𝐵𝐸𝒩𝐸𝒯𝒯𝒜𝒪𝐿𝒢𝒜-𝒫𝑅𝒪𝒟𝐸𝒩",
+    "title": "𝒢𝑅. 𝐵𝐸𝒩𝐸𝒯𝒯𝒜𝒪𝐿𝒢𝒜 𝒫𝑅𝒪𝒟𝐸𝒩𝐸𝒯𝒯- ᴺᴼᴬᴾᴼᴸÜᵀᵀᴱ ᴸᴼᴳᴵᴾˢᵁᵀᵀ AMENTEK+BREKTEK ^__6 ♥",
+    "author": "Taconiel",
+    "genre": "Не рассортировано",
+    "file": "https://archive.org/download/ma-ndraa-ma-ndraa/Taconiel%20-%20%F0%9D%92%A2%F0%9D%91%85.%20%F0%9D%90%B5%F0%9D%90%B8%F0%9D%92%A9%F0%9D%90%B8%F0%9D%92%AF%F0%9D%92%AF%F0%9D%92%9C%F0%9D%92%AA%F0%9D%90%BF%F0%9D%92%A2%F0%9D%92%9C%20%F0%9D%92%AB%F0%9D%91%85%F0%9D%92%AA%F0%9D%92%9F%F0%9D%90%B8%F0%9D%92%A9%F0%9D%90%B8%F0%9D%92%AF%F0%9D%92%AF-%20%E1%B4%BA%E1%B4%BC%E1%B4%AC%E1%B4%BE%E1%B4%BC%E1%B4%B8%C3%9C%E1%B5%80%E1%B5%80%E1%B4%B1%20%E1%B4%B8%E1%B4%BC%E1%B4%B3%E1%B4%B5%E1%B4%BE%CB%A2%E1%B5%81%E1%B5%80%E1%B5%80%20AMENTEK%2BBREKTEK%20%5E__6%20%E2%99%A5.mp3",
+    "duration": "1:32",
+    "added": "2024-02-09"
+  },
+  {
+    "id": "ma-ndraa-ma-ndraa",
+    "title": "�����������",
+    "author": "Taconiel",
+    "genre": "Не рассортировано",
+    "file": "https://archive.org/download/ma-ndraa-ma-ndraa/Taconiel%20-%20%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD.mp3",
+    "duration": "2:29",
+    "added": "2024-02-09"
+  },
+  {
+    "id": "ﾟヮﾟ-newday2008-ﾟヮﾟ",
+    "title": "☣(☞ﾟヮﾟ)☞NEWDAY2008☜(ﾟヮﾟ☜)☣",
+    "author": "Taconiel",
+    "genre": "Hardtekk",
+    "file": "https://archive.org/download/ma-ndraa-ma-ndraa/Taconiel%20-%20%E2%98%A3(%E2%98%9E%EF%BE%9F%E3%83%AE%EF%BE%9F)%E2%98%9ENEWDAY2008%E2%98%9C(%EF%BE%9F%E3%83%AE%EF%BE%9F%E2%98%9C)%E2%98%A3.mp3",
+    "duration": "1:03",
+    "added": "2024-02-09"
+  }
+]
 ]
