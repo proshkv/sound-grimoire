@@ -1,4 +1,4 @@
 [
-  { "title": "cette fille emo ✝",      "author": "matascoo", "genre": "Не рассортировано",     "file": "https://archive.org/download/matascoo-cette-fille-emo/matascoo%20-%20cette%20fille%20emo%20%E2%9C%9D%20%281%29.mp3", "duration": "2:04", "added": "2026-09-01" },
-  { "title": "VESNATEKK",        "author": "pro_Oshkv", "genre": "Hardtekk",     "file": "https://archive.org/download/pro-oshkv-spring-hardtekk/pro_Oshkv%20-%20Spring%20Hardtekk.mp3", "duration": "1:16", "added": "2026-09-01" }
+  { "id": "id1", "title": "cette fille emo ✝",      "author": "matascoo", "genre": "Не рассортировано",     "file": "https://archive.org/download/matascoo-cette-fille-emo/matascoo%20-%20cette%20fille%20emo%20%E2%9C%9D%20%281%29.mp3", "duration": "2:04", "added": "2026-09-01" },
+  { "id": "id2", "title": "VESNATEKK",        "author": "pro_Oshkv", "genre": "Hardtekk",     "file": "https://archive.org/download/pro-oshkv-spring-hardtekk/pro_Oshkv%20-%20Spring%20Hardtekk.mp3", "duration": "1:16", "added": "2026-09-01" }
 ]
