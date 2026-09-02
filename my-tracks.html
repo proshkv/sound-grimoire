@@ -1907,6 +1907,37 @@
     applyVolume(next);
   }, { passive: false });
 
+  /* управление с клавиатуры: ←/→ — предыдущий/следующий трек, ↑/↓ — громкость.
+     Не перехватываем клавиши, если фокус в поле ввода, списке или ползунке —
+     там у стрелок своё, привычное поведение. */
+  document.addEventListener('keydown', e => {
+    if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) return;
+    const tag = e.target && e.target.tagName;
+    const isFormField = tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' ||
+      (e.target && e.target.isContentEditable);
+    if (isFormField) return;
+
+    if (e.key === 'ArrowLeft'){
+      e.preventDefault();
+      ripple(prevBtn);
+      goPrev();
+    } else if (e.key === 'ArrowRight'){
+      e.preventDefault();
+      ripple(nextBtn);
+      goNext();
+    } else if (e.key === 'ArrowUp'){
+      e.preventDefault();
+      const next = Number(volumeEl.value) + 5;
+      if (next > 0) lastVolume = Math.min(100, next);
+      applyVolume(next);
+    } else if (e.key === 'ArrowDown'){
+      e.preventDefault();
+      const next = Number(volumeEl.value) - 5;
+      if (next > 0) lastVolume = Math.min(100, next);
+      applyVolume(next);
+    }
+  });
+
   /* восстановление сохранённой громкости */
   (function restoreVolume(){
     let saved = 80;
