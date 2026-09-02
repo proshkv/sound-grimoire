@@ -19,6 +19,8 @@
     --ink-dim: #9a9a9a;
     --ink-faint: #5d5d5d;
     --player-h: 92px;
+    --cur-default: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2720%27%20height%3D%2720%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M10%200C10.6%204.4%2010.9%206.6%2012.2%207.8C13.4%209.1%2015.6%209.4%2020%2010C15.6%2010.6%2013.4%2010.9%2012.2%2012.2C10.9%2013.4%2010.6%2015.6%2010%2020C9.4%2015.6%209.1%2013.4%207.8%2012.2C6.6%2010.9%204.4%2010.6%200%2010C4.4%209.4%206.6%209.1%207.8%207.8C9.1%206.6%209.4%204.4%2010%200Z%27%20fill%3D%27%23f4f4f4%27%20fill-opacity%3D%270.78%27%2F%3E%3C%2Fsvg%3E") 10 10, auto;
+    --cur-pointer: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2727%27%20height%3D%2727%27%20viewBox%3D%270%200%2027%2027%27%3E%3Cpath%20d%3D%27M13.2%200C14%205.8%2014.4%208.7%2016.1%2010.4C17.8%2012.1%2020.7%2012.5%2026.5%2013.3C20.7%2014.1%2017.8%2014.5%2016.1%2016.2C14.4%2017.9%2014%2020.8%2013.2%2026.6C12.4%2020.8%2012%2017.9%2010.3%2016.2C8.6%2014.5%205.7%2014.1%20-0.1%2013.3C5.7%2012.5%208.6%2012.1%2010.3%2010.4C12%208.7%2012.4%205.8%2013.2%200Z%27%20fill%3D%27%23ffffff%27%2F%3E%3Ccircle%20cx%3D%2723%27%20cy%3D%274%27%20r%3D%271.6%27%20fill%3D%27%23ffffff%27%20fill-opacity%3D%270.9%27%2F%3E%3C%2Fsvg%3E") 13 13, pointer;
   }
 
   *{ box-sizing: border-box; }
@@ -26,6 +28,7 @@
   html,body{
     margin:0;
     padding:0;
+    cursor: var(--cur-default);
     background: radial-gradient(120% 140% at 50% -10%, #202020 0%, var(--bg) 45%, var(--bg-deep) 100%);
     color: var(--ink);
     font-family: 'Quicksand', sans-serif;
@@ -200,7 +203,7 @@
     border: 2px solid var(--card-edge);
     border-radius: 999px;
     padding: 9px 20px;
-    cursor: pointer;
+    cursor: var(--cur-pointer);
     transition: transform .22s cubic-bezier(.2,.8,.2,1), border-color .22s ease,
                 box-shadow .22s ease, background-color .22s ease, color .22s ease;
     animation: pop-in .5s cubic-bezier(.2,.9,.2,1) both;
@@ -271,7 +274,7 @@
     border: 2px solid #f4f4f4;
     border-radius: 999px;
     padding: 9px 22px;
-    cursor: pointer;
+    cursor: var(--cur-pointer);
     transition: transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s ease;
     box-shadow: 0 8px 22px rgba(255,255,255,.14);
   }
@@ -280,6 +283,8 @@
     box-shadow: 0 10px 28px rgba(255,255,255,.28);
   }
   .my-tracks-btn:active{ transform: translateY(-1px) scale(.98); }
+  .my-tracks-btn svg{ transition: transform .3s cubic-bezier(.2,.8,.2,1); }
+  .my-tracks-btn:hover svg{ transform: translateY(-2px) rotate(-10deg); }
   .my-tracks-btn:focus-visible{
     outline: 3px solid #fff;
     outline-offset: 2px;
@@ -318,7 +323,7 @@
     border: 2px solid var(--card-edge);
     border-radius: 999px;
     padding: 10px 34px 10px 18px;
-    cursor: pointer;
+    cursor: var(--cur-pointer);
     outline: none;
     transition: border-color .25s ease, background-color .25s ease;
   }
@@ -371,7 +376,15 @@
     background: var(--card-2);
     box-shadow: 0 0 0 4px rgba(255,255,255,.08);
   }
-  .search-input:focus ~ .search-ico{ color: var(--ink); }
+  .search-input:focus ~ .search-ico{ color: var(--ink); animation: search-ico-pop .45s cubic-bezier(.3,1.6,.4,1); }
+  @keyframes search-ico-pop{
+    0%   { transform: translateY(-50%) scale(1) rotate(0); }
+    40%  { transform: translateY(-50%) scale(1.25) rotate(-14deg); }
+    100% { transform: translateY(-50%) scale(1) rotate(0); }
+  }
+  /* лёгкое дыхание иконки поиска, пока в строке есть текст */
+  .search-wrap.filled .search-ico{ animation: icon-breathe 2.2s ease-in-out infinite; }
+  @keyframes icon-breathe{ 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
   .search-clear{
     position: absolute;
     right: 8px;
@@ -385,7 +398,7 @@
     color: var(--ink-dim);
     font-size: 17px;
     line-height: 1;
-    cursor: pointer;
+    cursor: var(--cur-pointer);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -413,7 +426,7 @@
     border: 2px solid var(--card-edge);
     border-radius: 18px;
     padding: 12px 16px;
-    cursor: pointer;
+    cursor: var(--cur-pointer);
     transition: border-color .25s ease, transform .25s cubic-bezier(.2,.8,.2,1),
                 box-shadow .25s ease, background-color .25s ease;
     animation: slide-in .55s cubic-bezier(.2,.8,.2,1) both;
@@ -469,7 +482,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
+    cursor: var(--cur-pointer);
     color: #0b0b0b;
     transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s ease;
   }
@@ -564,6 +577,18 @@
     transition: color .25s ease, border-color .25s ease;
   }
   li.track:hover .track-genre-badge{ color: var(--ink); border-color: var(--edge-hot); }
+  /* блик по жанровому бейджу при наведении на запись */
+  .track-genre-badge{ position: relative; overflow: hidden; }
+  .track-genre-badge::after{
+    content:"";
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.4), transparent);
+    transform: skewX(-18deg);
+    transition: left .5s ease;
+  }
+  li.track:hover .track-genre-badge::after{ left: 150%; }
   .track-date{
     font-size: 11px;
     color: var(--ink-faint);
@@ -594,7 +619,7 @@
     background: none;
     padding: 0;
     font: inherit;
-    cursor: pointer;
+    cursor: var(--cur-pointer);
     position: relative;
     transition: color .25s ease, background-color .25s ease, transform .25s ease;
   }
@@ -621,6 +646,22 @@
   .favorite-btn.active:hover, .favorite-btn.active:focus-visible{ color: #ff6b81; }
   li.track:hover .favorite-btn.active{ color: #ff6b81; }
   .favorite-btn.pulse svg{ animation: fav-pulse .35s ease; }
+
+  /* мини-сердечки, разлетающиеся при добавлении в избранное */
+  .heart-particle{
+    position: absolute;
+    left: 50%; top: 50%;
+    pointer-events: none;
+    color: #ff6b81;
+    line-height: 1;
+    transform: translate(-50%, -50%);
+    animation: heart-burst .7s ease-out forwards;
+    will-change: transform, opacity;
+  }
+  @keyframes heart-burst{
+    0%   { opacity: 1; transform: translate(-50%,-50%) scale(.4) translate(0,0); }
+    100% { opacity: 0; transform: translate(-50%,-50%) scale(1) translate(var(--hx), var(--hy)); }
+  }
   @keyframes fav-pulse{
     0%   { transform: scale(1); }
     40%  { transform: scale(1.35); }
@@ -687,6 +728,13 @@
     transform: translateY(-2px) scale(1.04);
     box-shadow: 0 8px 22px rgba(0,0,0,.55);
   }
+  .vk-btn svg{ transition: transform .35s cubic-bezier(.3,1.4,.4,1); }
+  .vk-btn:hover svg{ animation: icon-wobble .5s ease; }
+  @keyframes icon-wobble{
+    0%, 100% { transform: rotate(0) scale(1); }
+    30%      { transform: rotate(-14deg) scale(1.12); }
+    60%      { transform: rotate(10deg) scale(1.12); }
+  }
   .vk-btn:focus-visible{
     outline: 3px solid #fff;
     outline-offset: 2px;
@@ -698,6 +746,14 @@
     padding: 40px 20px;
     font-size: 15px;
     animation: rise .6s cubic-bezier(.2,.8,.2,1) both;
+  }
+  .empty-state::before{
+    content: "✦";
+    display: block;
+    font-size: 26px;
+    color: var(--ink-faint);
+    margin-bottom: 10px;
+    animation: glyph-float 4s ease-in-out infinite;
   }
   .empty-state code{
     background: var(--card-2);
@@ -820,7 +876,7 @@
     border: none;
     background: #f4f4f4;
     color: #0b0b0b;
-    cursor: pointer;
+    cursor: var(--cur-pointer);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -848,7 +904,7 @@
     border: 2px solid var(--card-edge);
     background: var(--card);
     color: var(--ink);
-    cursor: pointer;
+    cursor: var(--cur-pointer);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -868,7 +924,7 @@
     border: 2px solid var(--card-edge);
     background: var(--card);
     color: var(--ink-dim);
-    cursor: pointer;
+    cursor: var(--cur-pointer);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -900,7 +956,7 @@
         #2b2b2b calc(var(--pct, 0) * 1%),
         #2b2b2b 100%);
     outline: none;
-    cursor: pointer;
+    cursor: var(--cur-pointer);
     transition: height .2s ease, filter .2s ease;
   }
   input[type="range"].mono:hover{ height: 9px; filter: brightness(1.15); }
@@ -910,7 +966,7 @@
     border-radius: 50%;
     background: #fff;
     border: 2px solid #0b0b0b;
-    cursor: pointer;
+    cursor: var(--cur-pointer);
     box-shadow: 0 0 0 0 rgba(255,255,255,.35);
     transition: transform .2s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease;
   }
@@ -924,7 +980,7 @@
     border-radius: 50%;
     background: #fff;
     border: 2px solid #0b0b0b;
-    cursor: pointer;
+    cursor: var(--cur-pointer);
     transition: transform .2s ease, box-shadow .25s ease;
   }
   input[type="range"].mono:hover::-moz-range-thumb{
@@ -934,6 +990,13 @@
   input[type="range"].mono:focus-visible{ outline: 2px solid #fff; outline-offset: 4px; }
 
   #seek{ flex: 1; min-width: 60px; }
+  /* лёгкое свечение бегунка перемотки, пока играет музыка */
+  body.is-playing #seek:not(:hover)::-webkit-slider-thumb{ animation: thumb-glow 1.8s ease-in-out infinite; }
+  body.is-playing #seek:not(:hover)::-moz-range-thumb{ animation: thumb-glow 1.8s ease-in-out infinite; }
+  @keyframes thumb-glow{
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,.35); }
+    50%      { box-shadow: 0 0 0 6px rgba(255,255,255,.12); }
+  }
 
   #time{
     flex: none;
@@ -959,7 +1022,7 @@
     border: 2px solid var(--card-edge);
     background: var(--card);
     color: var(--ink);
-    cursor: pointer;
+    cursor: var(--cur-pointer);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1183,6 +1246,7 @@
   const listEl = document.getElementById('trackList');
   const searchInputEl = document.getElementById('searchInput');
   const searchClearEl = document.getElementById('searchClear');
+  const searchWrapEl = document.querySelector('.search-wrap');
   const sortSelectEl = document.getElementById('sortSelect');
   const audioEl = document.getElementById('audioEl');
   const playPauseBtn = document.getElementById('playPause');
@@ -1284,6 +1348,26 @@
   });
 
   /* круги от нажатия внутри элемента */
+  /* разлетающиеся сердечки — короткая вспышка радости при добавлении в избранное */
+  function heartBurst(el){
+    if (!el) return;
+    const count = 6;
+    for (let i = 0; i < count; i++){
+      const p = document.createElement('span');
+      p.className = 'heart-particle';
+      p.textContent = '♥';
+      p.setAttribute('aria-hidden', 'true');
+      p.style.fontSize = `${8 + Math.random() * 6}px`;
+      const angle = (Math.PI * 2 * i) / count + Math.random() * 0.5;
+      const dist = 16 + Math.random() * 16;
+      p.style.setProperty('--hx', `${Math.cos(angle) * dist}px`);
+      p.style.setProperty('--hy', `${Math.sin(angle) * dist - 12}px`);
+      p.style.animationDelay = `${Math.random() * 70}ms`;
+      el.appendChild(p);
+      p.addEventListener('animationend', () => p.remove());
+    }
+  }
+
   function ripple(el, e){
     const rect = el.getBoundingClientRect();
     const size = Math.max(rect.width, rect.height);
@@ -1321,6 +1405,7 @@
   searchInputEl.addEventListener('input', () => {
     searchQuery = searchInputEl.value;
     searchClearEl.hidden = searchQuery.length === 0;
+    if (searchWrapEl) searchWrapEl.classList.toggle('filled', searchQuery.length > 0);
     renderList();
   });
 
@@ -1328,6 +1413,7 @@
     searchQuery = '';
     searchInputEl.value = '';
     searchClearEl.hidden = true;
+    if (searchWrapEl) searchWrapEl.classList.remove('filled');
     searchInputEl.focus();
     renderList();
   });
@@ -1594,6 +1680,7 @@
       btnEl.classList.remove('pulse');
       void btnEl.offsetWidth;
       btnEl.classList.add('pulse');
+      if (nowFavorite) heartBurst(btnEl);
       btnEl.setAttribute('aria-pressed', nowFavorite ? 'true' : 'false');
       const label = nowFavorite ? `Убрать «${title}» из избранного` : `Добавить «${title}» в избранное`;
       btnEl.setAttribute('aria-label', label);
